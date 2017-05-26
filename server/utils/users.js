@@ -36,6 +36,12 @@ class Users
         return user;
     }
 
+    getUserByName(name)
+    {
+         var user =  this.users.filter((user) =>  user.name === name)[0];
+        return user;
+    }
+
     getUserList(room)
     {
         var users = this.users.filter((user) =>  user.room === room);
