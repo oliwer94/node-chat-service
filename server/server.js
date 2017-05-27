@@ -14,11 +14,13 @@ var users = new Users();
 var userListForPrivate = [];
 
 io.on('connection', (socket) => {
-    
 
-    socket.on('register', (name) => {
+
+    socket.on('register', (name, callback) => {
         userListForPrivate.push({ name, "id": socket.id });
         console.log('connected to private', socket.id, name);
+
+        callback();
     });
 
     socket.on('private', (parameters) => {
@@ -41,7 +43,7 @@ io.on('connection', (socket) => {
             }
         });
 
-         console.log('joined to room', socket.id, params.name);
+        console.log('joined to room', socket.id, params.name);
 
         //to everyone in the room
         //io.to(params.room).emit();
