@@ -17,6 +17,12 @@ io.on('connection', (socket) => {
 
 
     socket.on('register', (name, callback) => {
+
+        for (var i = 0; i < userListForPrivate.length; i++) {
+            if (userListForPrivate[i].name === name) {
+                userListForPrivate.splice(i, 1);
+            }
+        }
         userListForPrivate.push({ name, "id": socket.id });
         console.log('connected to private', socket.id, name);
 
