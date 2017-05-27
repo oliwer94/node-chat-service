@@ -83,6 +83,12 @@ io.on('connection', (socket) => {
     });
 });
 
+app.get('/allGlobal', (req, res) => {
+    res.send(users);
+});
+app.get('/allPrivate', (req, res) => {
+    res.send(userListForPrivate);
+});
 
 server.listen(port, () => {
     console.log(`Server is up on port ${port}!`);
