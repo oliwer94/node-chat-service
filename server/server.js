@@ -67,6 +67,20 @@ io.on('connection', (socket) => {
         callback();
     });
 
+    socket.on('disconnectRoom', (params, callback) => {
+
+        socket.leave(params.room.toLowerCase());
+
+        console.log('left to room', socket.id, params.name);
+        users.removeUser(socket.id);
+
+        socket.emit('newMessage', generateMessage('Server', 'Disconnected from the room.'));
+        socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin', `${params.name} has left the room.`));
+
+        callback();
+    });
+
+
     socket.on('getRooms', () => {
         var rooms = users.getRoomList();
         if (rooms.length > 0) {
@@ -96,6 +110,9 @@ app.get('/allGlobal', (req, res) => {
 });
 app.get('/allPrivate', (req, res) => {
     res.send(userListForPrivate);
+});
+app.get('/allSockets', (req,res) => {
+    res.send(Object.keys(io.sockets.connected));
 });
 
 server.listen(port, () => {
