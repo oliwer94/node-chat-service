@@ -2,7 +2,7 @@
 
 ## Requirements 
 
-NodeJS 6+ installed.
+- NodeJS 6+ installed.
 
 ## Installation
 
